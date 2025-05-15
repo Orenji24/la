@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GramHealth - Rural Healthcare Solution</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #6a1b9a;
+            --accent: #ffab00;
+            --light: #f5f5f5;
+            --dark: #212121;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .language-selector select {
+            padding: 5px;
+            border-radius: 4px;
+            border: none;
+        }
+        
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--secondary);
+            padding: 10px 0;
+        }
+        
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .main-nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1200x400') no-repeat center center/cover;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #ffc107;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1b5e20;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .feature-card .icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 40px 0;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+        
+        .symptom-checker {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 40px 0;
+        }
+        
+        .symptom-checker h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .input-group select, 
+        .input-group input, 
+        .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .input-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .voice-input {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .voice-input button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .result {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .result h3 {
+            color: var(--success);
+            margin-bottom: 10px;
+        }
+        
+        .telemedicine {
+            background-color: var(--light);
+            padding: 40px 0;
+        }
+        
+        .telemedicine-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .telemedicine-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .diagnostic-centers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .center-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .center-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .center-info {
+            padding: 20px;
+        }
+        
+        .center-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .center-info p {
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: var(--success);
+        }
+        
+        .alerts {
+            background-color: #fff3e0;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+        
+        .alert-item {
+            padding: 15px;
+            border-bottom: 1px solid #ffe0b2;
+        }
+        
+        .alert-item:last-child {
+            border-bottom: none;
+        }
+        
+        .alert-item h3 {
+            color: var(--warning);
+        }
+        
+        .alert-item .date {
+            font-size: 0.8rem;
+            color: #757575;
+            margin-bottom: 5px;
+        }
+        
+        .offline-options {
+            background-color: var(--light);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .offline-options h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .offline-methods {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .method-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            width: 200px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .method-card .icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #bdbdbd;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .telemedicine-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .main-nav {
+                flex-wrap: wrap;
+            }
+            
+            .main-nav a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Voice assistant animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .listening {
+            animation: pulse 1s infinite;
+            background-color: var(--danger) !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://via.placeholder.com/40" alt="GramHealth Logo">
+                <span data-translate="logo">GramHealth</span>
+            </div>
+            <div class="language-selector">
+                <select id="language-select">
+                    <option value="en" data-translate="lang_en">English</option>
+                    <option value="hi" data-translate="lang_hi">हिंदी</option>
+                    <option value="kn" data-translate="lang_kn">ಕನ್ನಡ</option>
+                </select>
+            </div>
+        </div>
+    </header>
+    
+    <nav class="main-nav">
+        <a href="#symptom-checker" data-translate="nav_symptom_checker">Symptom Checker</a>
+        <a href="#telemedicine" data-translate="nav_telemedicine">Telemedicine</a>
+        <a href="#diagnostics" data-translate="nav_diagnostics">Diagnostics</a>
+        <a href="#alerts" data-translate="nav_alerts">Health Alerts</a>
+        <a href="#offline" data-translate="nav_offline">Offline Access</a>
+    </nav>
+    
+    <section class="hero">
+        <div class="container">
+            <h1 data-translate="hero_title">Affordable Healthcare for Rural India</h1>
+            <p data-translate="hero_text">Access doctors, diagnostics, and health information in your local language, even without internet</p>
+            <a href="#symptom-checker" class="btn btn-primary" data-translate="hero_button">Check Symptoms Now</a>
+        </div>
+    </section>
+    
+    <div class="container">
+        <section class="features">
+            <div class="feature-card">
+                <div class="icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3 data-translate="feature_lang_title">Local Language Support</h3>
+                <p data-translate="feature_lang_text">Available in 10+ Indian languages with voice interaction for those who can't read</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 data-translate="feature_offline_title">Works Without Internet</h3>
+                <p data-translate="feature_offline_text">Access via USSD, SMS or offline app. No need for constant internet connection</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <h3 data-translate="feature_diagnostic_title">Affordable Diagnostics</h3>
+                <p data-translate="feature_diagnostic_text">Low-cost tests starting at ₹50 with our network of local diagnostic centers</p>
+            </div>
+        </section>
+        
+        <section id="symptom-checker" class="symptom-checker">
+            <h2 data-translate="symptom_checker_title">Symptom Checker</h2>
+            <div class="input-group">
+                <label for="symptoms" data-translate="symptom_label">Describe your symptoms</label>
+                <textarea id="symptoms" data-translate="symptom_placeholder" placeholder="Example: I have fever, headache and body pain since yesterday"></textarea>
+                <div class="voice-input">
+                    <button id="voice-btn"><i class="fas fa-microphone"></i></button>
+                    <span data-translate="voice_input">Or use voice input</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="language" data-translate="language_label">Preferred Language</label>
+                <select id="language">
+                    <option value="en" data-translate="lang_en">English</option>
+                    <option value="hi" data-translate="lang_hi">हिंदी (Hindi)</option>
+                    <option value="kn" data-translate="lang_kn">ಕನ್ನಡ (Kannada)</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" id="check-symptoms" data-translate="check_symptoms">Check Symptoms</button>
+            
+            <div class="result" id="result">
+                <h3 data-translate="result_conditions">Possible Conditions</h3>
+                <p id="condition-result" data-translate="condition_result">Based on your symptoms, you might have: <strong>Viral Fever</strong></p>
+                <h3 data-translate="result_action">Recommended Action</h3>
+                <p id="action-result" data-translate="action_result">1. Rest and drink plenty of fluids<br>
+                2. Take paracetamol for fever (500mg every 6 hours)<br>
+                3. Consult a doctor if symptoms persist beyond 3 days</p>
+                <h3 data-translate="result_healthcare">Nearby Healthcare</h3>
+                <p id="healthcare-result" data-translate="healthcare_result">Nearest ASHA worker: <strong>Rekha Devi</strong> (500m away)<br>
+                Contact: 98765XXXXX<br>
+                Next available teleconsultation: Today 4PM</p>
+                <button class="btn" id="book-consultation" data-translate="book_consultation">Book Teleconsultation</button>
+            </div>
+        </section>
+        
+        <h2 class="section-title" data-translate="how_it_works">How GramHealth Works</h2>
+        
+        <section class="telemedicine">
+            <div class="container telemedicine-container">
+                <div class="telemedicine-content">
+                    <h2 data-translate="telemedicine_title">Telemedicine with Local Health Workers</h2>
+                    <p data-translate="telemedicine_text">Our network of trained ASHA and ANM workers can help you connect with doctors via video or phone call, even in remote areas.</p>
+                    <ul style="margin: 20px 0; padding-left: 20px;">
+                        <li data-translate="telemedicine_feature_1">Available in your local language</li>
+                        <li data-translate="telemedicine_feature_2">Basic health checks done by the worker</li>
+                        <li data-translate="telemedicine_feature_3">E-prescriptions sent via SMS</li>
+                        <li data-translate="telemedicine_feature_4">Integrated with Ayushman Bharat</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" data-translate="find_health_worker">Find Nearest Health Worker</a>
+                </div>
+                <div class="telemedicine-image">
+                    <img src="https://via.placeholder.com/600x400" alt="Telemedicine with health worker">
+                </div>
+            </div>
+        </section>
+        
+        <section id="diagnostics">
+            <h2 class="section-title" data-translate="diagnostics_title">Affordable Diagnostic Centers</h2>
+            <p style="text-align: center; margin-bottom: 20px;" data-translate="diagnostics_text">We've partnered with local diagnostic centers to provide tests at subsidized rates</p>
+            
+            <div class="diagnostic-centers">
+                <div class="center-card">
+                    <img src="https://via.placeholder.com/300x150" alt="Diagnostic Center">
+                    <div class="center-info">
+                        <h3 data-translate="center_1_name">Gramin Diagnostic Center</h3>
+                        <p data-translate="center_1_location"><i class="fas fa-map-marker-alt"></i> 2km from your location</p>
+                        <p data-translate="center_1_hours"><i class="fas fa-clock"></i> Open today 8AM-8PM</p>
+                        <p class="price" data-translate="center_1_test">Malaria Test: ₹60</p>
+                        <button class="btn" data-translate="book_test">Book Test</button>
+                    </div>
+                </div>
+                <div class="center-card">
+                    <img src="https://via.placeholder.com/300x150" alt="Diagnostic Center">
+                    <div class="center-info">
+                        <h3 data-translate="center_2_name">Janata Pathology Lab</h3>
+                        <p data-translate="center_2_location"><i class="fas fa-map-marker-alt"></i> 5km from your location</p>
+                        <p data-translate="center_2_hours"><i class="fas fa-clock"></i> Open today 9AM-6PM</p>
+                        <p class="price" data-translate="center_2_test">Diabetes Test: ₹80</p>
+                        <button class="btn" data-translate="book_test">Book Test</button>
+                    </div>
+                </div>
+                <div class="center-card">
+                    <img src="https://via.placeholder.com/300x150" alt="Diagnostic Center">
+                    <div class="center-info">
+                        <h3 data-translate="center_3_name">Community Health Center</h3>
+                        <p data-translate="center_3_location"><i class="fas fa-map-marker-alt"></i> 3km from your location</p>
+                        <p data-translate="center_3_hours"><i class="fas fa-clock"></i> Open today 8AM-4PM</p>
+                        <p class="price" data-translate="center_3_test">Basic Blood Tests: ₹120</p>
+                        <button class="btn" data-translate="book_test">Book Test</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="alerts" class="alerts">
+            <h2 data-translate="alerts_title">Health Alerts in Your Area</h2>
+            <div class="alert-item">
+                <div class="date" data-translate="alert_1_date">June 15, 2023</div>
+                <h3 data-translate="alert_1_title">Dengue Outbreak Alert</h3>
+                <p data-translate="alert_1_text">Increased cases reported in your district. Use mosquito nets and report fever symptoms immediately.</p>
+            </div>
+            <div class="alert-item">
+                <div class="date" data-translate="alert_2_date">June 10, 2023</div>
+                <h3 data-translate="alert_2_title">Vaccination Camp</h3>
+                <p data-translate="alert_2_text">Free measles vaccination camp at village health center on June 12, 9AM-2PM.</p>
+            </div>
+            <div class="alert-item">
+                <div class="date" data-translate="alert_3_date">June 5, 2023</div>
+                <h3 data-translate="alert_3_title">Heat Wave Warning</h3>
+                <p data-translate="alert_3_text">Extreme heat expected next week. Stay hydrated and avoid sun exposure between 11AM-4PM.</p>
+            </div>
+            <button class="btn" data-translate="subscribe_alerts">Subscribe to SMS Alerts</button>
+        </section>
+        
+        <section id="offline" class="offline-options">
+            <div class="container">
+                <h2 data-translate="offline_title">Access GramHealth Without Internet</h2>
+                <p data-translate="offline_text">We provide multiple ways to access healthcare information and services even without smartphone or internet</p>
+                
+                <div class="offline-methods">
+                    <div class="method-card">
+                        <div class="icon">
+                            <i class="fas fa-sms"></i>
+                        </div>
+                        <h3 data-translate="sms_service_title">SMS Service</h3>
+                        <p data-translate="sms_service_text">Send HEALTH to 56161 for menu</p>
+                    </div>
+                    <div class="method-card">
+                        <div class="icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3 data-translate="ivr_service_title">IVR Helpline</h3>
+                        <p data-translate="ivr_service_text">Call 1800-123-4567</p>
+                    </div>
+                    <div class="method-card">
+                        <div class="icon">
+                            <i class="fas fa-broadcast-tower"></i>
+                        </div>
+                        <h3 data-translate="ussd_service_title">USSD Code</h3>
+                        <p data-translate="ussd_service_text">Dial *123#</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#" data-translate="footer_about">About Us</a>
+                <a href="#" data-translate="footer_partners">Our Partners</a>
+                <a href="#" data-translate="footer_privacy">Privacy Policy</a>
+                <a href="#" data-translate="footer_terms">Terms of Service</a>
+                <a href="#" data-translate="footer_contact">Contact Us</a>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="copyright" data-translate="footer_copyright">© 2023 GramHealth. Developed for rural India.</div>
+        </div>
+    </footer>
+    
+    <script>
+        // Translation object for English, Hindi, and Kannada
+        const translations = {
+            en: {
+                logo: "GramHealth",
+                lang_en: "English",
+                lang_hi: "हिंदी",
+                lang_kn: "ಕನ್ನಡ",
+                nav_symptom_checker: "Symptom Checker",
+                nav_telemedicine: "Telemedicine",
+                nav_diagnostics: "Diagnostics",
+                nav_alerts: "Health Alerts",
+                nav_offline: "Offline Access",
+                hero_title: "Affordable Healthcare for Rural India",
+                hero_text: "Access doctors, diagnostics, and health information in your local language, even without internet",
+                hero_button: "Check Symptoms Now",
+                feature_lang_title: "Local Language Support",
+                feature_lang_text: "Available in 10+ Indian languages with voice interaction for those who can't read",
+                feature_offline_title: "Works Without Internet",
+                feature_offline_text: "Access via USSD, SMS or offline app. No need for constant internet connection",
+                feature_diagnostic_title: "Affordable Diagnostics",
+                feature_diagnostic_text: "Low-cost tests starting at ₹50 with our network of local diagnostic centers",
+                symptom_checker_title: "Symptom Checker",
+                symptom_label: "Describe your symptoms",
+                symptom_placeholder: "Example: I have fever, headache and body pain since yesterday",
+                voice_input: "Or use voice input",
+                language_label: "Preferred Language",
+                check_symptoms: "Check Symptoms",
+                result_conditions: "Possible Conditions",
+                condition_result: "Based on your symptoms, you might have: <strong>Viral Fever</strong>",
+                result_action: "Recommended Action",
+                action_result: "1. Rest and drink plenty of fluids<br>2. Take paracetamol for fever (500mg every 6 hours)<br>3. Consult a doctor if symptoms persist beyond 3 days",
+                result_healthcare: "Nearest ASHA worker: <strong>Rekha Devi</strong> (500m away)<br>Contact: 98765XXXXX<br>Next available teleconsultation: Today 4PM",
+                book_consultation: "Book Teleconsultation",
+                how_it_works: "How GramHealth Works",
+                telemedicine_title: "Telemedicine with Local Health Workers",
+                telemedicine_text: "Our network of trained ASHA and ANM workers can help you connect with doctors via video or phone call, even in remote areas.",
+                telemedicine_feature_1: "Available in your local language",
+                telemedicine_feature_2: "Basic health checks done by the worker",
+                telemedicine_feature_3: "E-prescriptions sent via SMS",
+                telemedicine_feature_4: "Integrated with Ayushman Bharat",
+                find_health_worker: "Find Nearest Health Worker",
+                diagnostics_title: "Affordable Diagnostic Centers",
+                diagnostics_text: "We've partnered with local diagnostic centers to provide tests at subsidized rates",
+                center_1_name: "Gramin Diagnostic Center",
+                center_1_location: "2km from your location",
+                center_1_hours: "Open today 8AM-8PM",
+                center_1_test: "Malaria Test: ₹60",
+                center_2_name: "Janata Pathology Lab",
+                center_2_location: "5km from your location",
+                center_2_hours: "Open today 9AM-6PM",
+                center_2_test: "Diabetes Test: ₹80",
+                center_3_name: "Community Health Center",
+                center_3_location: "3km from your location",
+                center_3_hours: "Open today 8AM-4PM",
+                center_3_test: "Basic Blood Tests: ₹120",
+                book_test: "Book Test",
+                alerts_title: "Health Alerts in Your Area",
+                alert_1_date: "June 15, 2023",
+                alert_1_title: "Dengue Outbreak Alert",
+                alert_1_text: "Increased cases reported in your district. Use mosquito nets and report fever symptoms immediately.",
+                alert_2_date: "June 10, 2023",
+                alert_2_title: "Vaccination Camp",
+                alert_2_text: "Free measles vaccination camp at village health center on June 12, 9AM-2PM.",
+                alert_3_date: "June 5, 2023",
+                alert_3_title: "Heat Wave Warning",
+                alert_3_text: "Extreme heat expected next week. Stay hydrated and avoid sun exposure between 11AM-4PM.",
+                subscribe_alerts: "Subscribe to SMS Alerts",
+                offline_title: "Access GramHealth Without Internet",
+                offline_text: "We provide multiple ways to access healthcare information and services even without smartphone or internet",
+                sms_service_title: "SMS Service",
+                sms_service_text: "Send HEALTH to 56161 for menu",
+                ivr_service_title: "IVR Helpline",
+                ivr_service_text: "Call 1800-123-4567",
+                ussd_service_title: "USSD Code",
+                ussd_service_text: "Dial *123#",
+                footer_about: "About Us",
+                footer_partners: "Our Partners",
+                footer_privacy: "Privacy Policy",
+                footer_terms: "Terms of Service",
+                footer_contact: "Contact Us",
+                footer_copyright: "© 2023 GramHealth. Developed for rural India.",
+                voice_alert: "Voice input captured. You can edit the text if needed.",
+                consultation_alert: "Teleconsultation booked! You'll receive an SMS with details shortly."
+            },
+            hi: {
+                logo: "ग्रामहेल्थ",
+                lang_en: "अंग्रेजी",
+                lang_hi: "हिंदी",
+                lang_kn: "कन्नड़",
+                nav_symptom_checker: "लक्षण जांच",
+                nav_telemedicine: "टेलीमेडिसिन",
+                nav_diagnostics: "निदान",
+                nav_alerts: "स्वास्थ्य अलर्ट",
+                nav_offline: "ऑफलाइन पहुंच",
+                hero_title: "ग्रामीण भारत के लिए किफायती स्वास्थ्य सेवा",
+                hero_text: "अपनी स्थानीय भाषा में डॉक्टरों, निदान और स्वास्थ्य जानकारी तक पहुंचें, बिना इंटरनेट के भी",
+                hero_button: "अब लक्षण जांचें",
+                feature_lang_title: "स्थानीय भाषा समर्थन",
+                feature_lang_text: "10+ भारतीय भाषाओं में उपलब्ध, जो पढ़ नहीं सकते उनके लिए आवाज़ आधारित सहायता",
+                feature_offline_title: "बिना इंटरनेट के काम करता है",
+                feature_offline_text: "यूएसएसडी, एसएमएस या ऑफलाइन ऐप के माध्यम से पहुंच। निरंतर इंटरनेट कनेक्शन की आवश्यकता नहीं",
+                feature_diagnostic_title: "किफायती निदान",
+                feature_diagnostic_text: "स्थानीय निदान केंद्रों के हमारे नेटवर्क के साथ ₹50 से शुरू होने वाले कम लागत वाले टेस्ट",
+                symptom_checker_title: "लक्षण जांच",
+                symptom_label: "अपने लक्षणों का वर्णन करें",
+                symptom_placeholder: "उदाहरण: मुझे कल से बुखार, सिरदर्द और शरीर में दर्द है",
+                voice_input: "या आवाज़ इनपुट का उपयोग करें",
+                language_label: "पसंदीदा भाषा",
+                check_symptoms: "लक्षण जांचें",
+                result_conditions: "संभावित स्थिति",
+                condition_result: "आपके लक्षणों के आधार पर, आपको हो सकता है: <strong>वायरल बुखार</strong>",
+                result_action: "अनुशंसित कार्रवाई",
+                action_result: "1. आराम करें और खूब तरल पदार्थ पिएं<br>2. बुखार के लिए पैरासिटामोल लें (500 मिलीग्राम हर 6 घंटे में)<br>3. यदि लक्षण 3 दिनों से अधिक समय तक रहें तो डॉक्टर से परामर्श करें",
+                result_healthcare: "निकटतम आशा कार्यकर्ता: <strong>रेखा देवी</strong> (500 मीटर दूर)<br>संपर्क: 98765XXXXX<br>अगला उपलब्ध टेलीकंसल्टेशन: आज शाम 4 बजे",
+                book_consultation: "टेलीकंसल्टेशन बुक करें",
+                how_it_works: "ग्रामहेल्थ कैसे काम करता है",
+                telemedicine_title: "स्थानीय स्वास्थ्य कार्यकर्ताओं के साथ टेलीमेडिसिन",
+                telemedicine_text: "प्रशिक्षित आशा और एएनएम कार्यकर्ताओं का हमारा नेटवर्क आपको दूरस्थ क्षेत्रों में भी वीडियो या फोन कॉल के माध्यम से डॉक्टरों से जोड़ सकता है।",
+                telemedicine_feature_1: "आपकी स्थानीय भाषा में उपलब्ध",
+                telemedicine_feature_2: "कार्यकर्ता द्वारा बुनियादी स्वास्थ्य जांच",
+                telemedicine_feature_3: "एसएमएस के माध्यम से ई-प्रिस्क्रिप्शन भेजा गया",
+                telemedicine_feature_4: "आयुष्मान भारत के साथ एकीकृत",
+                find_health_worker: "निकटतम स्वास्थ्य कार्यकर्ता ढूंढें",
+                diagnostics_title: "किफायती निदान केंद्र",
+                diagnostics_text: "हमने स्थानीय निदान केंद्रों के साथ साझेदारी की है ताकि सब्सिडी दरों पर टेस्ट प्रदान किए जा सकें",
+                center_1_name: "ग्रामीण निदान केंद्र",
+                center_1_location: "आपके स्थान से 2 किमी दूर",
+                center_1_hours: "आज सुबह 8 बजे से रात 8 बजे तक खुला",
+                center_1_test: "मलेरिया टेस्ट: ₹60",
+                center_2_name: "जनता पैथोलॉजी लैब",
+                center_2_location: "आपके स्थान से 5 किमी दूर",
+                center_2_hours: "आज सुबह 9 बजे से शाम 6 बजे तक खुला",
+                center_2_test: "मधुमेह टेस्ट: ₹80",
+                center_3_name: "सामुदायिक स्वास्थ्य केंद्र",
+                center_3_location: "आपके स्थान से 3 किमी दूर",
+                center_3_hours: "आज सुबह 8 बजे से दोपहर 4 बजे तक खुला",
+                center_3_test: "बुनियादी रक्त परीक्षण: ₹120",
+                book_test: "टेस्ट बुक करें",
+                alerts_title: "आपके क्षेत्र में स्वास्थ्य अलर्ट",
+                alert_1_date: "15 जून, 2023",
+                alert_1_title: "डेंगू प्रकोप अलर्ट",
+                alert_1_text: "आपके जिले में मामले बढ़े हैं। मच्छरदानी का उपयोग करें और बुखार के लक्षणों की तुरंत रिपोर्ट करें।",
+                alert_2_date: "10 जून, 2023",
+                alert_2_title: "टीकाकरण शिविर",
+                alert_2_text: "12 जून को सुबह 9 बजे से दोपहर 2 बजे तक गांव के स्वास्थ्य केंद्र में मुफ्त खसरा टीकाकरण शिविर।",
+                alert_3_date: "5 जून, 2023",
+                alert_3_title: "गर्मी की लहर चेतावनी",
+                alert_3_text: "अगले सप्ताह अत्यधिक गर्मी की उम्मीद। हाइड्रेटेड रहें और सुबह 11 बजे से शाम 4 बजे तक धूप से बचें।",
+                subscribe_alerts: "एसएमएस अलर्ट की सदस्यता लें",
+                offline_title: "बिना इंटरनेट के ग्रामहेल्थ तक पहुंचें",
+                offline_text: "हम स्मार्टफोन या इंटरनेट के बिना भी स्वास्थ्य जानकारी और सेवाओं तक पहुंचने के कई तरीके प्रदान करते हैं",
+                sms_service_title: "एसएमएस सेवा",
+                sms_service_text: "मेनू के लिए 56161 पर HEALTH भेजें",
+                ivr_service_title: "आईवीआर हेल्पलाइन",
+                ivr_service_text: "1800-123-4567 पर कॉल करें",
+                ussd_service_title: "यूएसएसडी कोड",
+                ussd_service_text: "*123# डायल करें",
+                footer_about: "हमारे बारे में",
+                footer_partners: "हमारे साझेदार",
+                footer_privacy: "गोपनीयता नीति",
+                footer_terms: "सेवा की शर्तें",
+                footer_contact: "संपर्क करें",
+                footer_copyright: "© 2023 ग्रामहेल्थ। ग्रामीण भारत के लिए विकसित।",
+                voice_alert: "आवाज़ इनपुट कैप्चर किया गया। यदि आवश्यक हो तो आप टेक्स्ट संपादित कर सकते हैं।",
+                consultation_alert: "टेलीकंसल्टेशन बुक किया गया! आपको जल्द ही विवरण के साथ एक एसएमएस प्राप्त होगा।"
+            },
+            kn: {
+                logo: "ಗ್ರಾಮಹೆಲ್ತ್",
+                lang_en: "ಇಂಗ್ಲಿಷ್",
+                lang_hi: "ಹಿಂದಿ",
+                lang_kn: "ಕನ್ನಡ",
+                okum: "nav_symptom_checker": "ಲಕ್ಷಣ ಪರಿಶೀಲನೆ",
+                nav_telemedicine: "ಟೆಲಿಮೆಡಿಸಿನ್",
+                nav_diagnostics: "ರೋಗನಿರ್ಣಯ",
+                nav_alerts: "ಆರೋಗ್ಯ ಎಚ್ಚರಿಕೆಗಳು",
+                nav_offline: "ಆಫ್‌ಲೈನ್ ಪ್ರವೇಶ",
+                hero_title: "ಗ್ರಾಮೀಣ ಭಾರತಕ್ಕೆ ಕೈಗೆಟುಕುವ ಆರೋಗ್ಯ ಸೇವೆ",
+                hero_text: "ನಿಮ್ಮ ಸ್ಥಳೀಯ ಭಾಷೆಯಲ್ಲಿ ವೈದ್ಯರು, ರೋಗನಿರ್ಣಯ ಮತ್ತು ಆರೋಗ್ಯ ಮಾಹಿತಿಯನ್ನು ಪಡೆಯಿರಿ, ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ",
+                hero_button: "ಈಗ ಲಕ್ಷಣಗಳನ್ನು ಪರಿಶೀಲಿಸಿ",
+                feature_lang_title: "ಸ್ಥಳೀಯ ಭಾಷೆಯ ಬೆಂಬಲ",
+                feature_lang_text: "10+ ಭಾರತೀಯ ಭಾಷೆಗಳಲ್ಲಿ ಲಭ್ಯವಿದೆ, ಓದಲಾಗದವರಿಗೆ ಧ್ವನಿ ಸಂವಾದ",
+                feature_offline_title: "ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ",
+                feature_offline_text: "ಯುಎಸ್‌ಎಸ್‌ಡಿ, ಎಸ್‌ಎಂಎಸ್ ಅಥವಾ ಆಫ್‌ಲೈನ್ ಆಪ್ ಮೂಲಕ ಪ್ರವೇಶ. ನಿರಂತರ ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕದ ಅಗತ್ಯವಿಲ್ಲ",
+                feature_diagnostic_title: "ಕೈಗೆಟುಕುವ ರೋಗನಿರ್ಣಯ",
+                feature_diagnostic_text: "ನಮ್ಮ ಸ್ಥಳೀಯ ರೋಗನಿರ್ಣಯ ಕೇಂದ್ರಗಳ ಜಾಲದೊಂದಿಗೆ ₹50 ರಿಂದ ಪ್ರಾರಂಭವಾಗುವ ಕಡಿಮೆ ವೆಚ್ಚದ ಪರೀಕ್ಷೆಗಳು",
+                symptom_checker_title: "ಲಕ್ಷಣ ಪರಿಶೀಲನೆ",
+                symptom_label: "ನಿಮ್ಮ ಲಕ್ಷಣಗಳನ್ನು ವಿವರಿಸಿ",
+                symptom_placeholder: "ಉದಾಹರಣೆ: ನನಗೆ ನಿನ್ನೆಯಿಂದ ಜ್ವರ, ತಲೆನೋವು ಮತ್ತು ದೇಹ ನೋವು ಇದೆ",
+                voice_input: "ಅಥವಾ ಧ್ವನಿ ಇನ್‌ಪುಟ್ ಬಳಸಿ",
+                language_label: "ಆದ್ಯತೆಯ ಭಾಷೆ",
+                check_symptoms: "ಲಕ್ಷಣಗಳನ್ನು ಪರಿಶೀಲಿಸಿ",
+                result_conditions: "ಸಂಭಾವ್ಯ ಸ್ಥಿತಿಗಳು",
+                condition_result: "ನಿಮ್ಮ ಲಕ್ಷಣಗಳ ಆಧಾರದ ಮೇಲೆ, ನೀವು ಹೊಂದಿರಬಹುದು: <strong>ವೈರಲ್ ಜ್ವರ</strong>",
+                result_action: "ಶಿಫಾರಸು ಮಾಡಲಾದ ಕ್ರಿಯೆ",
+                action_result: "1. ವಿಶ್ರಾಂತಿ ಪಡೆಯಿರಿ ಮತ್ತು ಸಾಕಷ್ಟು ದ್ರವಗಳನ್ನು ಕುಡಿಯಿರಿ<br>2. ಜ್ವರಕ್ಕೆ ಪಾರಾಸಿಟಮಾಲ್ ತೆಗೆದುಕೊಳ್ಳಿ (500 ಮಿಗ್ರಾಂ ಪ್ರತಿ 6 ಗಂಟೆಗೊಮ್ಮೆ)<br>3. ಲಕ್ಷಣಗಳು 3 ದಿನಗಳಿಗಿಂತ ಹೆಚ್ಚು ಕಾಲ ಮುಂದುವರಿದರೆ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ",
+                result_healthcare: "ಹತ್ತಿರದ ಆಶಾ ಕಾರ್ಯಕರ್ತೆ: <strong>ರೇಖಾ ದೇವಿ</strong> (500 ಮೀ ದೂರದಲ್ಲಿ)<br>ಸಂಪರ್ಕ: 98765XXXXX<br>ಮುಂದಿನ ಲಭ্য ಟೆಲಿಕನ್ಸಲ್ಟೇಶನ್: ಇಂದು ಸಂಜೆ 4 ಗಂಟೆಗೆ",
+                book_consultation: "ಟೆಲಿಕನ್ಸಲ್ಟೇಶನ್ ಬುಕ್ ಮಾಡಿ",
+                how_it_works: "ಗ್ರಾಮಹೆಲ್ತ್ ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ",
+                telemedicine_title: "ಸ್ಥಳೀಯ ಆರೋಗ್ಯ ಕಾರ್ಯಕರ್ತರೊಂದಿಗೆ ಟೆಲಿಮೆಡಿಸಿನ್",
+                telemedicine_text: "ನಮ್ಮ ತರಬೇತಿಪಡೆದ ಆಶಾ ಮತ್ತು ಎಎನ್‌ಎಂ ಕಾರ್ಯಕರ್ತರ ಜಾಲವು ದೂರದ ಪ್ರದೇಶಗಳಲ್ಲಿಯೂ ವೀಡಿಯೊ ಅಥವಾ ಫೋನ್ ಕರೆ ಮೂಲಕ ವೈದ್ಯರೊಂದಿಗೆ ಸಂಪರ್ಕಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ।",
+                telemedicine_feature_1: "ನಿಮ್ಮ ಸ್ಥಳೀಯ ಭಾಷೆಯಲ್ಲಿ ಲಭ್ಯವಿದೆ",
+                telemedicine_feature_2: "ಕಾರ್ಯಕರ್ತರಿಂದ ಮೂಲಭೂತ ಆರೋಗ್ಯ ಪರೀಕ್ಷೆ",
+                telemedicine_feature_3: "ಎಸ್‌ಎಂಎಸ್ ಮೂಲಕ ಇ-ಪ್ರಿಸ್ಕ್ರಿಪ್ಷನ್ ಕಳುಹಿಸಲಾಗಿದೆ",
+                telemedicine_feature_4: "ಆಯುಷ್ಮಾನ್ ಭಾರತದೊಂದಿಗೆ ಸಂಯೋಜಿತ",
+                find_health_worker: "ಹತ್ತಿರದ ಆರೋಗ್ಯ ಕಾರ್ಯಕರ್ತರನ್ನು ಹುಡುಕಿ",
+                diagnostics_title: "ಕೈಗೆಟುಕುವ ರೋಗನಿರ್ಣಯ ಕೇಂದ್ರಗಳು",
+                diagnostics_text: "ಕಡಿಮೆ ದರದಲ್ಲಿ ಪರೀಕ್ಷೆಗಳನ್ನು ಒದಗಿಸಲು ನಾವು ಸ್ಥಳೀಯ ರೋಗನಿರ್ಣಯ ಕೇಂದ್ರಗಳೊಂದಿಗೆ ಸಹಭಾಗಿತ್ವ ಹೊಂದಿದ್ದೇವೆ",
+                center_1_name: "ಗ್ರಾಮೀಣ ರೋಗನಿರ್ಣಯ ಕೇಂದ್ರ",
+                center_1_location: "ನಿಮ್ಮ ಸ್ಥಳದಿಂದ 2 ಕಿಮೀ ದೂರದಲ್ಲಿ",
+                center_1_hours: "ಇಂದು ಬೆಳಿಗ್ಗೆ 8 ರಿಂದ ರಾತ್ರಿ 8 ರವರೆಗೆ ತೆರೆದಿರುತ್ತದೆ",
+                center_1_test: "ಮಲೇರಿಯಾ ಪರೀಕ್ಷೆ: ₹60",
+                center_2_name: "ಜನತಾ ಪ್ಯಾಥಾಲಜಿ ಲ್ಯಾಬ್",
+                center_2_location: "ನಿಮ್ಮ ಸ್ಥಳದಿಂದ 5 ಕಿಮೀ ದೂರದಲ್ಲಿ",
+                center_2_hours: "ಇಂದು ಬೆಳಿಗ್ಗೆ 9 ರಿಂದ ಸಂಜೆ 6 ರವರೆಗೆ ತೆರೆದಿರುತ್ತದೆ",
+                center_2_test: "ಮಧುಮೇಹ ಪರೀಕ್ಷೆ: ₹80",
+                center_3_name: "ಸಮುದಾಯ ಆರೋಗ್ಯ ಕೇಂದ್ರ",
+                center_3_location: "ನಿಮ್ಮ ಸ್ಥಳದಿಂದ 3 ಕಿಮೀ ದೂರದಲ್ಲಿ",
+                center_3_hours: "ಇಂದು ಬೆಳಿಗ್ಗೆ 8 ರಿಂದ ಮಧ್ಯಾಹ್ನ 4 ರವರೆಗೆ ತೆರೆದಿರುತ್ತದೆ",
+                center_3_test: "ಮೂಲಭೂತ ರಕ್ತ ಪರೀಕ್ಷೆಗಳು: ₹120",
+                book_test: "ಪರೀಕ್ಷೆ ಬುಕ್ ಮಾಡಿ",
+                alerts_title: "ನಿಮ್ಮ ಪ್ರದೇಶದಲ್ಲಿ ಆರೋಗ್ಯ ಎಚ್ಚರಿಕೆಗಳು",
+                alert_1_date: "ಜೂನ್ 15, 2023",
+                alert_1_title: "ಡೆಂಗ್ಯೂ ಸಾಂಕ್ರಾಮಿಕ ಎಚ್ಚರಿಕೆ",
+                alert_1_text: "ನಿಮ್ಮ ಜಿಲ್ಲೆಯಲ್ಲಿ ಹೆಚ್ಚಿನ ಪ್ರಕರಣಗಳು ವರದಿಯಾಗಿವೆ. ಮೊಸ್ಕಿಟೊ ನೆಟ್ ಬಳಸಿ ಮತ್ತು ಜ್ವರದ ಲಕ್ಷಣಗಳನ್ನು ತಕ್ಷಣ ವರದಿ ಮಾಡಿ。",
+                alert_2_date: "ಜೂನ್ 10, 2023",
+                alert_2_title: "ಲಸಿಕೆ ಶಿಬಿರ",
+                alert_2_text: "ಜೂನ್ 12 ರಂದು ಬೆಳಿಗ್ಗೆ 9 ರಿಂದ ಮಧ್ಯಾಹ್ನ 2 ರವರೆಗೆ ಗ್ರಾಮ ಆರೋಗ್ಯ ಕೇಂದ್ರದಲ್ಲಿ ಉಚಿತ ಕಾಸಿರೋಗ ಲಸಿಕೆ ಶಿಬಿರ।",
+                alert_3_date: "ಜೂನ್ 5, 2023",
+                alert_3_title: "ಬಿಸಿಲಿನ ಎಚ್ಚರಿಕೆ",
+                alert_3_text: "ಮುಂದಿನ ವಾರ ತೀವ್ರ ಬಿಸಿಲು ನಿರೀಕ್ಷಿತವಾಗಿದೆ. ಹೈಡ್ರೇಟೆಡ್ ಆಗಿರಿ ಮತ್ತು ಬೆಳಿಗ್ಗೆ 11 ರಿಂದ ಸಂಜೆ 4 ರವರೆಗೆ ಸೂರ್ಯನ ಬೆಳಕನ್ನು ತಪ್ಪಿಸಿ。",
+                subscribe_alerts: "ಎಸ್‌ಎಂಎಸ್ ಎಚ್ಚರಿಕೆಗಳಿಗೆ ಚಂದಾದಾರರಾಗಿ",
+                offline_title: "ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆ ಗ್ರಾಮಹೆಲ್ತ್ ಅನ್ನು ಪ್ರವೇಶಿಸಿ",
+                offline_text: "ಸ್ಮಾರ್ಟ್‌ಫೋನ್ ಅಥವಾ ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೇ ಆರೋಗ್ಯ ಮಾಹಿತಿ ಮತ್ತು ಸೇವೆಗಳನ್ನು ಪ್ರವೇಶಿಸಲು ನಾವು ಬಹು ವಿಧಾನಗಳನ್ನು ಒದಗಿಸುತ್ತೇವೆ",
+                sms_service_title: "ಎಸ್‌ಎಂಎಸ್ ಸೇವೆ",
+                sms_service_text: "ಮೆನುಗಾಗಿ 56161 ಕ್ಕೆ HEALTH ಕಳುಹಿಸಿ",
+                ivr_service_title: "ಐವಿಆರ್ ಹೆಲ್ಪ್‌ಲೈನ್",
+                ivr_service_text: "1800-123-4567 ಗೆ ಕರೆ ಮಾಡಿ",
+                ussd_service_title: "ಯುಎಸ್‌ಎಸ್‌ಡಿ ಕೋಡ್",
+                ussd_service_text: "*123# ಡಯಲ್ ಮಾಡಿ",
+                footer_about: "ನಮ್ಮ ಬಗ್ಗೆ",
+                footer_partners: "ನಮ್ಮ ಪಾಲುದಾರರು",
+                footer_privacy: "ಗೌಪ್ಯತೆ ನೀತಿ",
+                footer_terms: "ಸೇವೆಯ ನಿಯಮಗಳು",
+                footer_contact: "ಸಂಪರ್ಕಿಸಿ",
+                footer_copyright: "© 2023 ಗ್ರಾಮಹೆಲ್ತ್. ಗ್ರಾಮೀಣ ಭಾರತಕ್ಕಾಗಿ ಅಭಿವೃದ್ಧಿಪಡಿಸಲಾಗಿದೆ.",
+                voice_alert: "ಧ್ವನಿ ಇನ್‌ಪುಟ್ ಸೆರೆಹಿಡಿಯಲಾಗಿದೆ. ಅಗತ್ಯವಿದ್ದರೆ ನೀವು ಪಠ್ಯವನ್ನು ಸಂಪಾದಿಸಬಹುದು.",
+                consultation_alert: "ಟೆಲಿಕನ್ಸಲ್ಟೇಶನ್ ಬುಕ್ ಆಗಿದೆ! ಶೀಘ್ರದಲ್ಲೇ ವಿವರಗಳೊಂದಿಗೆ ನೀವು ಎಸ್‌ಎಂಎಸ್ ಪಡೆಯುವಿರಿ."
+            }
+        };
+
+        let currentLang = 'en';
+
+        // Update UI with translations
+        function updateLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                let text = translations[lang][key] || translations.en[key];
+                if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+                    el.placeholder = text;
+                } else if (el.tagName === 'OPTION') {
+                    el.textContent = text;
+                } else {
+                    el.innerHTML = text;
+                }
+            });
+        }
+
+        // Speak text using browser speech synthesis
+        function speakText(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = currentLang === 'hi' ? 'hi-IN' : currentLang === 'kn' ? 'kn-IN' : 'en-IN';
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLanguage('en');
+            const langSelect = document.getElementById('language-select');
+            langSelect.addEventListener('change', (e) => {
+                updateLanguage(e.target.value);
+                alert(translations[currentLang].lang_changed || `Language changed to ${e.target.options[e.target.selectedIndex].text}`);
+            });
+
+            // Symptom checker
+            document.getElementById('check-symptoms').addEventListener('click', function() {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+                const conditionText = translations[currentLang].condition_result;
+                const actionText = translations[currentLang].action_result;
+                const healthcareText = translations[currentLang].healthcare_result;
+                speakText(`${conditionText}. ${actionText}. ${healthcareText}`);
+            });
+
+            // Voice input simulation
+            document.getElementById('voice-btn').addEventListener('click', function() {
+                const btn = this;
+                btn.classList.add('listening');
+                setTimeout(function() {
+                    btn.classList.remove('listening');
+                    document.getElementById('symptoms').value = translations[currentLang].symptom_placeholder;
+                    alert(translations[currentLang].voice_alert);
+                }, 3000);
+            });
+
+            // Book consultation
+            document.getElementById('book-consultation').addEventListener('click', function() {
+                alert(translations[currentLang].consultation_alert);
+                speakText(translations[currentLang].consultation_alert);
+            });
+
+            // Diagnostic center buttons
+            document.querySelectorAll('.center-card .btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const message = translations[currentLang].book_test + " booked!";
+                    alert(message);
+                    speakText(message);
+                });
+            });
+
+            // Subscribe to alerts
+            document.querySelector('.alerts .btn').addEventListener('click', () => {
+                const message = "Subscribed to SMS alerts!";
+                alert(message);
+                speakText(message);
+            });
+        });
+    </script>
+</body>
+</html>
